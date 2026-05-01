@@ -1,6 +1,6 @@
-# My React App
+# My React App 2026
 
-`npx create-react-app my-react-2006`으로 생성한 React 프로젝트입니다.
+`npx create-react-app my-react-2026`으로 생성한 React 프로젝트입니다.
 
 ## 시작하기
 
