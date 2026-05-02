@@ -1,9 +1,5 @@
 # My React App 2026
 
-[Vite](https://vitejs.dev/) + React로 구동하는 프로젝트입니다.
-
-## 시작하기
-
 ### 1) 의존성 설치
 
 ```bash
@@ -30,11 +26,15 @@ npm run dev
 
 ### 3) 폴더구조
 
-## `npm start`
-- 개발 모드로 앱을 실행합니다.
-- 파일 변경 시 자동으로 새로고침됩니다.
+## `<src>`
 
-### `npm run build`
-- 배포용 빌드를 생성합니다.
-- 결과물은 `build` 폴더에 저장됩니다.
-`
+```
+src/
+├── components/      # 공통 UI 컴포넌트
+├── pages/           # 라우팅 되는 페이지 컴포넌트
+├── hooks/           # 커스텀 훅
+├── assets/          # 이미지,폰트 등
+├── utils/           # 공통 유틸 함수
+├── App.tsx          # 루트 컴포넌트
+├── main.tsx         # 진입점
+```
