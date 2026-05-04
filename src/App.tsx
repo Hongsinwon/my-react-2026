@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import NotFound from './NotFound';
 
 const Home = lazy(() => import('./pages/Home'));
@@ -8,10 +8,16 @@ const MyPage = lazy(() => import('./pages/MyPage'));
 
 // Procted Routes(보호된 라우트) 작성 및 사용 예제
 function PrivateRoute({ children }: { children: React.ReactNode }) {
+  const navigate = useNavigate();
   const isLogin = false;
 
   if (!isLogin) {
-    return <Navigate to="login" />;
+    return (
+      <>
+        <div>로그인을 진행해주세요</div>
+        <button onClick={() => navigate('/login')}>로그인</button>
+      </>
+    );
   }
 
   return children;
