@@ -1,7 +1,21 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import Login from './pages/Login';
-import Home from './pages/Home';
-import MyPage from './pages/MyPage';
+import { lazy, Suspense } from 'react';
+import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
+import NotFound from './NotFound';
+
+const Home = lazy(() => import('./pages/Home'));
+const Login = lazy(() => import('./pages/Login'));
+const MyPage = lazy(() => import('./pages/MyPage'));
+
+// Procted Routes(보호된 라우트) 작성 및 사용 예제
+function PrivateRoute({ children }: { children: React.ReactNode }) {
+  const isLogin = false;
+
+  if (!isLogin) {
+    return <Navigate to="login" />;
+  }
+
+  return children;
+}
 
 export default function App() {
   {
@@ -24,20 +38,29 @@ export default function App() {
           <Link to="/login">로그인</Link>
           <Link to="/mypage">마이 페이지</Link>
         </nav>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          {/* 동적 라우팅 */}
-          <Route path="/login" element={<Login />} />
+        <Suspense fallback={<div>loading...</div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            {/* 동적 라우팅 */}
+            <Route path="/login" element={<Login />} />
 
-          {/* 중첩 라우팅 : 상단 메뉴나 사이드바는 고정된 채, 특정 영역의 UI만 바뀌어야 하는 구조에서 사용합니다. */}
-          <Route path="/mypage" element={<MyPage />}>
-            <Route path="profile" element={<p>내 프로필 내용</p>} />
-            <Route path="settings" element={<p>환경설정 내용</p>} />
-          </Route>
+            {/* 중첩 라우팅 : 상단 메뉴나 사이드바는 고정된 채, 특정 영역의 UI만 바뀌어야 하는 구조에서 사용합니다. */}
+            <Route
+              path="/mypage"
+              element={
+                <PrivateRoute>
+                  <MyPage />
+                </PrivateRoute>
+              }
+            >
+              <Route path="profile" element={<p>내 프로필 내용</p>} />
+              <Route path="settings" element={<p>환경설정 내용</p>} />
+            </Route>
 
-          {/* 404 페이지 처리 */}
-          <Route path="*" element={<h1>페이지를 찾을 수 없습니다.</h1>} />
-        </Routes>
+            {/* 404 페이지 처리 */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </div>
   );
