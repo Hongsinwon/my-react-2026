@@ -1,11 +1,10 @@
-import { BrowserRouter, Routes, Route, NavLink  } from 'react-router-dom';
-import Login from './pages/Login.jsx';
-import Home from './pages/Home.jsx';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import Login from './pages/Login';
+import Home from './pages/Home';
 
 export default function App() {
-  return (
-    <div className="App">
-      {/* 
+
+    {/* 
       SPA(Single Page Application)는 서버로부터 매번 새로운 HTML을 받아오는 것이 아니라, 하나의 페이지에서 필요한 부분만 자바스크립트로 갈아 끼우는 방식입니다.
       ① HTML은 1개만 존재합니다.(index.html) ② JS가 화면을 변경합니다. ③ 서버는 JSON만 전달합니다. ④ 기존의 방식보다 빠른 화면 전환이 가능합니다.
       
@@ -15,13 +14,15 @@ export default function App() {
       ② Routes & Route : 현재 URL에 따라 어떤 컴포넌트를 렌더링할지 정의합니다.
       ③ Link : 전통적인 태그는 페이지를 새로고침하지만, Link는 페이지의 새로고침 없이 URL만 바꿔줍니다.
       */}
+  return (
+    <div className="App">
       <BrowserRouter>
             <nav>
-                <NavLink  to="/">홈</NavLink >
-                <NavLink  to="/login">로그인</NavLink >
+                <Link  to="/">홈</Link >
+                <Link  to="/login">로그인</Link >
             </nav>
-
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
         </Routes>
